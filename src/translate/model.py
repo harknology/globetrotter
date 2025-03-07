@@ -5,6 +5,6 @@ model = T5ForConditionalGeneration.from_pretrained(model_name, device_map="auto"
 tokenizer = T5Tokenizer.from_pretrained(model_name)
 
 def translate(to: str, text: str):
-    input_ids = tokenizer("<2{0}> {1}".format(to, text), return_tensors=to).input_ids.to(model.device)
+    input_ids = tokenizer("<2{0}> {1}".format(to, text), return_tensors='pt').input_ids.to(model.device)
     outputs = model.generate(input_ids=input_ids)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
